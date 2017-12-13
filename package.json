@@ -1,0 +1,7 @@
+{
+  "name": "evaluation-tool-api",
+  "version": "1.0.0",
+  "description": "RESTful API to manage Batches",
+  "main": "index.js",
+  "license": "MIT"
+}
