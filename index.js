@@ -2,24 +2,13 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const passport = require('./config/auth')
-const { users } = require('./routes')
+const { users} = require('./routes')
 const http = require('http')
-const socketAuth = require('./config/socket-auth')
-const socketIO = require('socket.io')
 
 const port = process.env.PORT || 3030
 
 const app = express()
 const server = http.Server(app)
-const io = socketIO(server)
-
-// using auth middleware
-io.use(socketAuth);
-
-io.on('connect', socket => {
-  socket.emit('ping', `Welcome to the server, ${socket.request.user.name}`)
-  console.log(`${socket.request.user.name} connected to the server`)
-})
 
 app
   .use(cors())
@@ -27,6 +16,7 @@ app
   .use(bodyParser.json())
   .use(passport.initialize())
   .use(users)
+
 
   // catch 404 and forward to error handler
   .use((req, res, next) => {
