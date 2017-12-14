@@ -3,6 +3,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const passport = require('./config/auth')
 const { users} = require('./routes')
+const { batches} = require('./routes')
 const http = require('http')
 
 const port = process.env.PORT || 3030
@@ -16,9 +17,8 @@ app
   .use(bodyParser.json())
   .use(passport.initialize())
   .use(users)
+  .use(batches)
 
-
-  // catch 404 and forward to error handler
   .use((req, res, next) => {
     const err = new Error('Not Found')
     err.status = 404
